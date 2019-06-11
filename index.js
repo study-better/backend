@@ -52,7 +52,7 @@ app.get('/classes', (req, res) => res.json(classes))
 const generateAssignment = (classId) => ({
   _id: nanoid(),
   name: `This is an assignment ${nanoid()}`,
-  dueDate: moment().add(_.random(-30, 30)),
+  dueDate: moment().add(_.random(-30, 30), 'days'),
   classId,
   class: _.map(classes, '_id')[classId],
 })
