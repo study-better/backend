@@ -1,10 +1,11 @@
 const express = require('express')
 const asyncExpress = require('async-express')
 const mongoose = require('mongoose')
-const nanoid = require('nanoid')
-const _ = require('lodash')
-const moment = require('moment')
 const app = express()
+
+mongoose.set('useCreateIndex', true)
+require('./models/assignment')
+require('./models/class')
 
 app.use(express.json())
 
@@ -23,43 +24,12 @@ const mongoConnect = asyncExpress(async (_1, _2, next) => {
   next()
 })
 
-const mongoDisconnect = asyncExpress(async (_1, _2, next) => {
-  await mongoose.disconnect()
-  next()
-})
-
 /**
  * Establish a connection to the mongo database, then continue the request
  **/
 app.use(mongoConnect)
 
-const classes = [
-  {
-    _id: '1',
-    name: 'AP US History',
-    totalAssignments: 43,
-    completedAssignments: 24,
-  },
-  {
-    _id: '2',
-    name: 'AP Biology',
-    totalAssignments: 24,
-    completedAssignments: 10,
-  }
-]
-app.get('/classes', (req, res) => res.json(classes))
-
-const generateAssignment = (classId) => ({
-  _id: nanoid(),
-  name: `This is an assignment ${nanoid()}`,
-  dueDate: moment().add(_.random(-30, 30), 'days'),
-  classId,
-  class: _.map(classes, '_id')[classId],
-})
-
-/**
- * Pass query param of "classId"
- **/
-app.get('/assignments', (req, res) => res.json([...new Array(20)].map(() => generateAssignment(req.query.classId))))
+require('./routes/assignment')(app)
+require('./routes/class')(app)
 
 module.exports = app
