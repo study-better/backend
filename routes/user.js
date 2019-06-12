@@ -7,6 +7,7 @@ const User = mongoose.model('User')
 
 module.exports = (app) => {
   app.post('/users', createUser)
+  app.post('/users/login', login)
 }
 
 const createUser = asyncExpress(async (req, res) => {
@@ -43,5 +44,30 @@ const createUser = asyncExpress(async (req, res) => {
     passwordHash,
     createdAt: new Date(),
   })
-  res.json({ ...user._doc, token })
+  res.json({ ...user._doc, passwordHash: '', token })
+})
+
+const login = asyncExpress(async (req, res) => {
+  const user = await User.findOne({
+    username: {
+      $regex: new RegExp(`^${req.body.username}$`, 'i'),
+    },
+  }).lean().exec()
+  if (!user) {
+    res.status(404).json({ message: `Unable to find username ${req.body.username}` })
+    return
+  }
+  console.log(user)
+  const passwordMatch = await bcrypt.compare(req.body.password, user.passwordHash)
+  if (!passwordMatch) {
+    res.status(401).json({
+      message: 'The supplied password is invalid',
+    })
+    return
+  }
+  const token = jwt.sign(
+    { ...user, passwordHash: '' },
+    process.env.WEB_TOKEN_SECRET
+  )
+  res.json({ ...user, passwordHash: '', token })
 })
