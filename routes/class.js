@@ -5,7 +5,7 @@ const Assignment = mongoose.model('Assignment')
 const auth = require('../middleware/auth')
 
 module.exports = (app) => {
-  app.get('/classes', loadClasses)
+  app.get('/classes', auth, loadClasses)
   app.post('/classes', auth, createClass)
 }
 
@@ -15,7 +15,6 @@ const loadClasses = asyncExpress(async (req, res) => {
 })
 
 const createClass = asyncExpress(async (req, res) => {
-  // const _class = await Class.create(req.body)
-  // res.json(_class)
-  res.json({})
+  const _class = await Class.create(req.body)
+  res.json(_class._doc)
 })

@@ -3,8 +3,8 @@ const asyncExpress = require('async-express')
 const Assignment = mongoose.model('Assignment')
 
 module.exports = (app) => {
-  app.get('/assignments', loadAssignments)
-  app.post('/assignments', createAssignment)
+  app.get('/assignments', auth, loadAssignments)
+  app.post('/assignments', auth, createAssignment)
 }
 
 const loadAssignments = asyncExpress(async (req, res) => {
@@ -14,5 +14,5 @@ const loadAssignments = asyncExpress(async (req, res) => {
 
 const createAssignment = asyncExpress(async (req, res) => {
   const assignment = await Assignment.create(req.body)
-  res.json(assignment)
+  res.json(assignment._doc)
 })
