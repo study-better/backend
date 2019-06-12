@@ -57,7 +57,6 @@ const login = asyncExpress(async (req, res) => {
     res.status(404).json({ message: `Unable to find username ${req.body.username}` })
     return
   }
-  console.log(user)
   const passwordMatch = await bcrypt.compare(req.body.password, user.passwordHash)
   if (!passwordMatch) {
     res.status(401).json({
