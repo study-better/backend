@@ -48,6 +48,10 @@ const createUser = asyncExpress(async (req, res) => {
 })
 
 const login = asyncExpress(async (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    res.status(400).json({ message: 'Missing username or password'})
+    return
+  }
   const user = await User.findOne({
     username: {
       $regex: new RegExp(`^${req.body.username}$`, 'i'),
