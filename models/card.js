@@ -1,22 +1,27 @@
 const mongoose = require('mongoose')
 const ChapterSchema = requre('chapterSchema')
 
-const ClassSchema = new mongoose.Schema({
-  name: {
+const CardSchema = new mongoose.Schema({
+  type: {
     type: String,
-    required: true,
+    required: true
+  },
+  front: {
+    type: String,
+  },
+  back: {
+    type: String,
+  },
+  answers: {
+    type: [String],
   },
   classId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  chapters: {
-    type: [ChapterSchema]
+  chapter: {
+    type: ChapterSchema,
   },
-  isDefinedClass: {
-    type: Boolean,
-    default: false,
-  }
 })
 
 module.exports = mongoose.model('Class', ClassSchema)

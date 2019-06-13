@@ -7,6 +7,7 @@ mongoose.set('useCreateIndex', true)
 require('./models/assignment')
 require('./models/class')
 require('./models/user')
+require('./models/card')
 
 app.use(express.json())
 
