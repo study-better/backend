@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const ChapterSchema = requre('chapterSchema')
+const ChapterSchema = require('./chapter')
 
 const CardSchema = new mongoose.Schema({
   type: {
@@ -19,9 +19,6 @@ const CardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  chapter: {
-    type: ChapterSchema,
-  },
 })
 
-module.exports = mongoose.model('Class', ClassSchema)
+module.exports = mongoose.model('Card', CardSchema)

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const asyncExpress = require('async-express')
 const Assignment = mongoose.model('Assignment')
+const auth = require('../middleware/auth')
 
 module.exports = (app) => {
   app.get('/assignments', auth, loadAssignments)

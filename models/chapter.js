@@ -5,6 +5,10 @@ const ChapterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  classId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
 })
 
-module.exports = ChapterSchema
+module.exports = mongoose.model('Chapter', ChapterSchema)

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const ChapterSchema = requre('chapterSchema')
+const ChapterSchema = require('./chapter')
 
 const ClassSchema = new mongoose.Schema({
   name: {
@@ -9,9 +9,6 @@ const ClassSchema = new mongoose.Schema({
   classId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-  },
-  chapters: {
-    type: [ChapterSchema]
   },
   isDefinedClass: {
     type: Boolean,
