@@ -6,10 +6,6 @@ const ClassSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  classId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
   isDefinedClass: {
     type: Boolean,
     default: false,
