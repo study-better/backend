@@ -35,7 +35,7 @@ const deleteClass = asyncExpress(async (req, res) => {
     return
   }
 
-  await Promise.all([
+    await Promise.all([
     Class.deleteOne({_id: mongoose.Types.ObjectId(req.body._id)}).exec(),
     Chapter.deleteMany({classId: mongoose.Types.ObjectId(req.body._id)}).exec(),
     Card.deleteMany({classId: mongoose.Types.ObjectId(req.body._id)}).exec(),

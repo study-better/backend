@@ -19,6 +19,10 @@ const CardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
+  chapterId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+  },
 })
 
 module.exports = mongoose.model('Card', CardSchema)
