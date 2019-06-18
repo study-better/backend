@@ -7,6 +7,8 @@ mongoose.set('useCreateIndex', true)
 require('./models/assignment')
 require('./models/class')
 require('./models/user')
+require('./models/card')
+require('./models/chapter')
 
 app.use(express.json())
 
@@ -33,5 +35,7 @@ app.use(mongoConnect)
 require('./routes/assignment')(app)
 require('./routes/class')(app)
 require('./routes/user')(app)
+require('./routes/card')(app)
+require('./routes/chapter')(app)
 
 module.exports = app
